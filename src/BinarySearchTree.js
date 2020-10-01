@@ -45,7 +45,14 @@ class BinarySearchTree {
     }
   }
 
-  traverseDepthFirstInOrder(callback) {}
+  traverseDepthFirstInOrder(callback) {
+    function inOrder(callback, tree) {
+      if (tree.left !== null) inOrder(callback, tree.left);
+      callback(tree);
+      if (tree.right !== null) inOrder(callback, tree.right);
+    }
+    inOrder(callback, this);
+  }
 }
 
 /*
