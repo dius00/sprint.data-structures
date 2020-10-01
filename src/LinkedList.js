@@ -11,11 +11,31 @@ class LinkedList {
     }
   }
 
-  appendToTail(value) {}
+  appendToTail(value) {
+    const newNode = new Node(value);
+    if ("head" in this === false) {
+      this.head = newNode;
+    } else {
+      this.tail.next = newNode;
+    }
+    this.tail = newNode;
+    return newNode;
+  }
 
-  removeHead() {}
+  removeHead() {
+    const oldHead = this.head;
+    this.head = this.head.next;
+    return oldHead;
+  }
 
-  findNode(value) {}
+  findNode(value) {
+    let iterator = this.head;
+    do {
+      if (iterator.value === value) return iterator;
+      iterator = iterator.next;
+    } while (iterator.next !== null);
+    return null;
+  }
 
   /*
 +-------------------------+
