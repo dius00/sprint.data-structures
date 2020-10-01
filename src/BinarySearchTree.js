@@ -27,6 +27,24 @@ class BinarySearchTree {
     return this;
   }
 
+  contains(value) {
+    let iterator = this;
+    while (true) {
+      if (iterator.value === value) return true;
+      if (value > iterator.value) {
+        if (iterator.right !== null) iterator = iterator.right;
+        else {
+          return false;
+        }
+      } else {
+        if (iterator.left !== null) iterator = iterator.left;
+        else {
+          return false;
+        }
+      }
+    }
+  }
+
   traverseDepthFirstInOrder(callback) {}
 }
 
