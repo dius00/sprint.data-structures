@@ -61,9 +61,50 @@ describe("Trees", () => {
       expect(tree.contains(4)).to.equal(true);
       expect(tree.contains(5)).to.equal(true);
     });
-  });
 
-  /*
+    describe("The remove method", () => {
+      it("should exist on the Tree prototype", () => {
+        expect(Tree.prototype.remove).to.exist;
+      });
+
+      it("should remove the value if it is found", () => {
+        tree.addChild(2);
+        tree.addChild(3);
+        tree.remove(2);
+        expect(tree.children).to.eql([new Tree(3)]);
+      });
+
+      it("should correctly remove nested children", () => {
+        tree.addChild(2);
+        tree.addChild(3);
+        tree.children[0].addChild(4);
+        tree.children[1].addChild(5);
+        tree.remove(4);
+        tree.remove(3);
+        expect(tree.children[0].children).to.eql([]);
+        expect(tree.children.length).to.equal(1);
+      });
+
+      it("should return the removed tree if it is found", () => {
+        tree.addChild(2);
+        tree.addChild(3);
+        let chopped = tree.remove(2);
+        expect(chopped).to.eql(new Tree(2));
+      });
+
+      it("should return the removed tree, including children, if it is found", () => {
+        tree.addChild(2);
+        tree.addChild(3);
+        tree.children[0].addChild(4);
+        tree.children[1].addChild(5);
+        let chopped = tree.remove(2);
+        let compareTree = new Tree(2);
+        compareTree.addChild(4);
+        expect(chopped).to.eql(compareTree);
+      });
+    });
+
+    /*
 +-------------------------+
 | Advanced Requirements!! |
 +-------------------------+
@@ -75,47 +116,50 @@ requirements for ALL data structures in this exercise.
 Uncomment by removing the 'x'.
 */
 
-  xdescribe("The traverseDepthFirst method", () => {
-    it("should exist on the Tree prototype", () => {
-      expect(Tree.prototype.traverseDepthFirst).to.exist;
+    xdescribe("The traverseDepthFirst method", () => {
+      it("should exist on the Tree prototype", () => {
+        expect(Tree.prototype.traverseDepthFirst).to.exist;
+      });
+
+      it("should travel down the tree before across", () => {
+        tree.addChild(2);
+        tree.addChild(3);
+        tree.children[0].addChild(4);
+        tree.children[1].addChild(5);
+        const depthFirstResult = [];
+        tree.traverseDepthFirst((node) => depthFirstResult.push(node.value));
+        expect(depthFirstResult).to.eql([4, 2, 5, 3, 1]);
+      });
+
+      it("should take a function as the parameter", () => {
+        const x = (node) => node;
+        tree.traverseDepthFirst(x);
+        expect(x).to.be.a("function");
+      });
     });
 
-    it("should travel down the tree before across", () => {
-      tree.addChild(2);
-      tree.addChild(3);
-      tree.children[0].addChild(4);
-      tree.children[1].addChild(5);
-      const depthFirstResult = [];
-      tree.traverseDepthFirst((node) => depthFirstResult.push(node.value));
-      expect(depthFirstResult).to.eql([4, 2, 5, 3, 1]);
-    });
+    xdescribe("The traverseBreadthFirst method", () => {
+      it("should exist on the Tree prototype", () => {
+        expect(Tree.prototype.traverseBreadthFirst).to.exist;
+      });
 
-    it("should take a function as the parameter", () => {
-      const x = (node) => node;
-      tree.traverseDepthFirst(x);
-      expect(x).to.be.a("function");
-    });
-  });
+      it("should travel across the tree before going down", () => {
+        tree.addChild(2);
+        tree.addChild(3);
+        tree.children[0].addChild(4);
+        tree.children[1].addChild(5);
+        const breadthFirstResult = [];
+        tree.traverseBreadthFirst((node) =>
+          breadthFirstResult.push(node.value)
+        );
+        expect(breadthFirstResult).to.eql([1, 2, 3, 4, 5]);
+      });
 
-  xdescribe("The traverseBreadthFirst method", () => {
-    it("should exist on the Tree prototype", () => {
-      expect(Tree.prototype.traverseBreadthFirst).to.exist;
-    });
-
-    it("should travel across the tree before going down", () => {
-      tree.addChild(2);
-      tree.addChild(3);
-      tree.children[0].addChild(4);
-      tree.children[1].addChild(5);
-      const breadthFirstResult = [];
-      tree.traverseBreadthFirst((node) => breadthFirstResult.push(node.value));
-      expect(breadthFirstResult).to.eql([1, 2, 3, 4, 5]);
-    });
-
-    it("should take a function as the parameter", () => {
-      const x = (node) => node;
-      tree.traverseBreadthFirst(x);
-      expect(x).to.be.a("function");
+      it("should take a function as the parameter", () => {
+        const x = (node) => node;
+        tree.traverseBreadthFirst(x);
+        expect(x).to.be.a("function");
+      });
     });
   });
 });

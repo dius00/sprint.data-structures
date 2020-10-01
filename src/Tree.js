@@ -22,7 +22,27 @@ class Tree {
     return result;
   }
 
-  remove(value) {}
+  remove(value) {
+    let removedValue;
+    function searchValue(tree) {
+      let childHasValue = false;
+      if (tree.children !== []) {
+        for (const child of tree.children) {
+          if (child.value === value) {
+            childHasValue = true;
+            removedValue = child;
+          }
+          if (childHasValue) {
+            tree.children.splice(tree.children.indexOf(removedValue), 1);
+          } else {
+            for (const child of tree.children) searchValue(child);
+          }
+        }
+      }
+    }
+    searchValue(this);
+    return removedValue;
+  }
 
   /*
 +-------------------------+
