@@ -44,7 +44,7 @@ describe("The Binary Search Tree", () => {
       expect(typeof BinarySearchTree.prototype.insert).to.equal("function");
     });
 
-    it.only("should insert the given value", () => {
+    it("should insert the given value", () => {
       tree.insert(2);
       expect(tree.value).to.equal(1);
       expect(tree.right.value).to.equal(2);
