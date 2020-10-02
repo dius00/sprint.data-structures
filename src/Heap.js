@@ -11,7 +11,11 @@ class Heap {
       heapList.storage[smlIndex] = temp;
     }
 
-    for (let i = this.storage.length - 1; i > 0; i--) {
+    for (
+      let i = this.storage.length - 1;
+      i > Math.floor(this.storage.length / 2) - 1;
+      i--
+    ) {
       let parent, parentIndex;
       parentIndex = Math.floor((i - 1) / 2);
       parent = this.storage[parentIndex];
