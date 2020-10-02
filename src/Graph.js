@@ -40,10 +40,7 @@ class Graph {
   }
   // returns undefined. Remove connection between two nodes
   removeEdge(value1, value2) {
-    if (
-      this.nodes[value1].includes(value2) &&
-      this.nodes[value2].includes(value1)
-    ) {
+    if (this.hasEdge(value1, value2)) {
       let index = this.nodes[value1].indexOf(value2);
       this.nodes[value1].splice(index, 1);
       index = this.nodes[value2].indexOf(value1);
@@ -51,7 +48,11 @@ class Graph {
     }
   }
   // returns boolean. Returns true if edge exists, false otherwise
-  hasEdge(value1, value2) {}
+  hasEdge(value1, value2) {
+    return (
+      this.nodes[value1].includes(value2) && this.nodes[value2].includes(value1)
+    );
+  }
 }
 
 /*
