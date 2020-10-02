@@ -2,7 +2,7 @@
 
 const { expect } = require("chai");
 const { isClass } = require("./utilities");
-const Graph = require("../src/Graph");
+const { Graph } = require("../src/Graph");
 
 let graph;
 describe("Graphs", () => {
@@ -116,10 +116,10 @@ describe("Graphs", () => {
       graph.addNode(1);
       graph.addNode(3);
       graph.addNode(6);
-      graph.addEdge(6,3);
+      graph.addEdge(6, 3);
       expect(graph.nodes[6][0]).to.equal(3);
       expect(graph.nodes[3][0]).to.equal(6);
-      graph.addEdge(6,3);
+      graph.addEdge(6, 3);
       expect(graph.nodes[6].length).to.equal(1);
       expect(graph.nodes[3].length).to.equal(1);
     });
@@ -142,7 +142,8 @@ describe("Graphs", () => {
       expect(graph.nodes[6][0]).to.equal(3);
       graph.removeEdge(3, 6);
       expect(graph.nodes[5][0]).to.equal(3);
-      expect(graph.nodes[3][0]).to.equal(5);
+      expect(graph.nodes[3]).to.eql([5]);
+      expect(graph.nodes[6]).to.eql([]);
     });
   });
 
