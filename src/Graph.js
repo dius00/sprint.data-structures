@@ -23,8 +23,7 @@ class Graph {
   }
   // returns boolean. Returns true if value is found in graph, false otherwise
   contains(value) {
-    if (this.nodes.hasOwnProperty(value)) return true;
-    return false;
+    return !!this.nodes[value];
   }
   // returns undefined. Create connection between two nodes if they're both present in the graph
   addEdge(value1, value2) {
