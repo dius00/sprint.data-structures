@@ -18,6 +18,10 @@ class Graph {
   // removes a node from graph and returns undefined.
   removeNode(value) {
     if (this.nodes[value]) {
+      for (const edge of this.nodes[value]) {
+        const index = this.nodes[edge].indexOf(value);
+        this.nodes[edge].splice(index, 1);
+      }
       delete this.nodes[value];
     }
   }
@@ -35,7 +39,17 @@ class Graph {
     }
   }
   // returns undefined. Remove connection between two nodes
-  removeEdge(value1, value2) {}
+  removeEdge(value1, value2) {
+    if (
+      this.nodes[value1].includes(value2) &&
+      this.nodes[value2].includes(value1)
+    ) {
+      let index = this.nodes[value1].indexOf(value2);
+      this.nodes[value1].splice(index, 1);
+      index = this.nodes[value2].indexOf(value1);
+      this.nodes[value2].splice(index, 1);
+    }
+  }
   // returns boolean. Returns true if edge exists, false otherwise
   hasEdge(value1, value2) {}
 }
