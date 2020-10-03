@@ -54,9 +54,23 @@ Do not proceed until you are done with the basic
 requirements for ALL data structures in this exercise.
 
 */
-  traverseDepthFirst(fn) {}
+  traverseDepthFirst(fn) {
+    function inOrder(fn, tree) {
+      if (tree.left !== null) inOrder(fn, tree.left);
+      fn(tree);
+      if (tree.right !== null) inOrder(fn, tree.right);
+    }
+    inOrder(fn, this);
+  }
 
-  traverseBreadthFirst(fn) {}
+  traverseBreadthFirst(fn) {
+    fn(this);
+    function traverseBreadth(callback, tree) {
+      for (const child of tree.children) callback(child);
+      for (const child of tree.children) traverseBreadth(callback, child);
+    }
+    traverseBreadth(fn, this);
+  }
 }
 
 /*
