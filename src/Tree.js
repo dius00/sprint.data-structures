@@ -55,12 +55,12 @@ requirements for ALL data structures in this exercise.
 
 */
   traverseDepthFirst(fn) {
-    function inOrder(fn, tree) {
-      if (tree.left !== null) inOrder(fn, tree.left);
+    function depthFirst(fn, tree) {
+      if (tree.children[0]) depthFirst(fn, tree.children[0]);
+      if (tree.children[1]) depthFirst(fn, tree.children[1]);
       fn(tree);
-      if (tree.right !== null) inOrder(fn, tree.right);
     }
-    inOrder(fn, this);
+    depthFirst(fn, this);
   }
 
   traverseBreadthFirst(fn) {
