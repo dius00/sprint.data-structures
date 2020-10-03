@@ -1,6 +1,8 @@
-function Node(value) {
-  this.next = null;
-  this.value = value;
+class Node {
+  constructor(value) {
+    this.next = null;
+    this.value = value;
+  }
 }
 
 class LinkedList {
@@ -34,6 +36,7 @@ class LinkedList {
       if (iterator.value === value) return iterator;
       iterator = iterator.next;
     } while (iterator.next !== null);
+    if (iterator.value === value) return iterator;
     return null;
   }
 
@@ -47,13 +50,44 @@ Do not proceed until you are done with the basic
 requirements for ALL data structures in this exercise.
 */
 
-  forEach(callback) {}
+  forEach(callback) {
+    let iterator = this.head;
+    do {
+      callback(iterator.value);
+      iterator = iterator.next;
+    } while (iterator.next !== null);
+    callback(iterator.value);
+  }
 
-  print() {}
+  print() {
+    let nodePrint = "";
+    function addToNodePrint(value) {
+      nodePrint += `${value}, `;
+    }
+    this.forEach(addToNodePrint);
+    return nodePrint.slice(0, -2);
+  }
 
-  insertHead(value) {}
+  insertHead(value) {
+    const newHead = new Node(value);
+    newHead.next = this.head;
+    return (this.head = newHead);
+  }
 
-  insertAfter(refNode, value) {}
+  insertAfter(refNode, value) {
+    if (!refNode || !(refNode instanceof Node))
+      throw new Error("Please supply a refNode");
+    let iterator = this.head;
+    const newNode = new Node(value);
+    do {
+      if (iterator === refNode) {
+        newNode.next = iterator.next;
+        iterator.next = newNode;
+        return newNode;
+      }
+      iterator = iterator.next;
+    } while (iterator.next !== null);
+  }
 
   removeAfter(refNode) {}
 }
