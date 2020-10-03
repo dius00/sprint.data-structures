@@ -2,30 +2,80 @@ class Heap {
   constructor() {
     this.storage = [];
   }
+
   insert(value) {
+    // O(log n)
     this.storage.push(value);
+    this.sortInsert();
+  }
 
-    function swap(heapList, lrgIndex, smlIndex) {
-      let temp = heapList.storage[lrgIndex];
-      heapList.storage[lrgIndex] = heapList.storage[smlIndex];
-      heapList.storage[smlIndex] = temp;
-    }
+  sortInsert() {
+    let childIndex = this.storage.length - 1; //selects last index
+    let childValue = this.storage[childIndex]; //select last index
 
-    for (
-      let i = this.storage.length - 1;
-      i > Math.floor(this.storage.length / 2) - 1;
-      i--
-    ) {
-      let parent, parentIndex;
-      parentIndex = Math.floor((i - 1) / 2);
-      parent = this.storage[parentIndex];
-      if (parent < this.storage[i]) swap(this, i, parentIndex);
+    while (childIndex > 0) {
+      //while loop
+      let parentIndex = Math.floor((childIndex - 1) / 2); //select parent index
+      let parent = this.storage[parentIndex]; //select parent value
+      if (childValue > parent) {
+        //if the child is bigger
+        //swaps the value
+        this.storage[parentIndex] = childValue;
+        this.storage[childIndex] = parent;
+        //now, since this is ordered, we move onto the parent
+        childIndex = parentIndex;
+      }
+      //if the child is smaller, escapes the loop
+      if (childValue <= parent) break;
     }
   }
 
-  removeMax() {}
-}
+  removeMax() {
+    //it's important for this step to move the rightmost element
+    //to be moved to the first position
+    let removed = this.storage[0];
+    let end = this.storage.pop();
+    if (this.storage.length > 0) {
+      this.storage[0] = end;
+      this.sortRemoval();
+    }
+    return removed;
+  }
 
+  sortRemoval() {
+    let parentIndex = 0;
+    while (true) {
+      //selects parent
+      let parent = this.storage[parentIndex];
+      //selects children indexes and values
+      let leftChildIndex = parentIndex * 2 + 1;
+      let rightChildIndex = parentIndex * 2 + 2;
+      let left = this.storage[leftChildIndex];
+      let right = this.storage[rightChildIndex];
+      //temp variable
+      let swap = null;
+      //checks the left child
+      if (leftChildIndex < this.storage.length && parent < left) {
+        swap = leftChildIndex;
+      }
+      //checks the right child
+      if (
+        rightChildIndex < this.storage.length &&
+        parent < right &&
+        left < right
+      ) {
+        swap = rightChildIndex;
+      }
+      //if no change in needed than it is already ordered and break is used to escape
+      if (swap === null) break;
+      //if it does not escapes
+      this.storage[parentIndex] = this.storage[swap];
+      this.storage[swap] = parent;
+      parentIndex = swap;
+    }
+  }
+}
+//}
 module.exports = Heap;
 // 1 4 7 5 3
 // 0 1 2 3 4 index
