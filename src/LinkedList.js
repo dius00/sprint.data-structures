@@ -89,7 +89,18 @@ requirements for ALL data structures in this exercise.
     } while (iterator.next !== null);
   }
 
-  removeAfter(refNode) {}
+  removeAfter(refNode) {
+    if (!refNode) return;
+    let iterator = this.head;
+    do {
+      if (iterator === refNode) {
+        const toRemove = refNode.next;
+        refNode.next = refNode.next.next;
+        return toRemove;
+      }
+      iterator = iterator.next;
+    } while (iterator.next !== null);
+  }
 }
 
 module.exports = LinkedList;
