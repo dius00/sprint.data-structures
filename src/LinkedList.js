@@ -32,11 +32,10 @@ class LinkedList {
 
   findNode(value) {
     let iterator = this.head;
-    do {
+    while (iterator) {
       if (iterator.value === value) return iterator;
       iterator = iterator.next;
-    } while (iterator.next !== null);
-    if (iterator.value === value) return iterator;
+    }
     return null;
   }
 
@@ -52,11 +51,10 @@ requirements for ALL data structures in this exercise.
 
   forEach(callback) {
     let iterator = this.head;
-    do {
+    while (iterator) {
       callback(iterator.value);
       iterator = iterator.next;
-    } while (iterator.next !== null);
-    callback(iterator.value);
+    }
   }
 
   print() {
@@ -79,27 +77,27 @@ requirements for ALL data structures in this exercise.
       throw new Error("Please supply a refNode");
     let iterator = this.head;
     const newNode = new Node(value);
-    do {
+    while (iterator) {
       if (iterator === refNode) {
         newNode.next = iterator.next;
         iterator.next = newNode;
         return newNode;
       }
       iterator = iterator.next;
-    } while (iterator.next !== null);
+    }
   }
 
   removeAfter(refNode) {
     if (!refNode) return;
     let iterator = this.head;
-    do {
+    while (iterator) {
       if (iterator === refNode) {
         const toRemove = refNode.next;
         refNode.next = refNode.next.next;
         return toRemove;
       }
       iterator = iterator.next;
-    } while (iterator.next !== null);
+    }
   }
 }
 
