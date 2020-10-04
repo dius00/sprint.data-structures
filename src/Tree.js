@@ -4,12 +4,14 @@ class Tree {
     this.children = [];
   }
 
+  //O(1)
   addChild(value) {
     const newTree = new Tree(value);
     this.children.push(newTree);
     return newTree;
   }
 
+  //O(n)
   contains(value) {
     let result = false;
     function searchValue(tree) {
@@ -22,6 +24,7 @@ class Tree {
     return result;
   }
 
+  //O(n)
   remove(value) {
     let removedValue;
     function searchValue(tree) {
@@ -54,6 +57,7 @@ Do not proceed until you are done with the basic
 requirements for ALL data structures in this exercise.
 
 */
+  //O(n)
   traverseDepthFirst(fn) {
     function depthFirst(fn, tree) {
       if (tree.children[0]) depthFirst(fn, tree.children[0]);
@@ -63,6 +67,7 @@ requirements for ALL data structures in this exercise.
     depthFirst(fn, this);
   }
 
+  //O(n)
   traverseBreadthFirst(fn) {
     fn(this);
     function traverseBreadth(callback, tree) {

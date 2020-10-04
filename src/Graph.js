@@ -9,6 +9,7 @@ class Graph {
   }
 
   // adds a node to graph with a primitive value. Returns undefined.
+  // O(1)
   addNode(value) {
     if (!this.nodes[value]) {
       this.nodes[value] = [];
@@ -16,6 +17,7 @@ class Graph {
   }
 
   // removes a node from graph and returns undefined.
+  // O(n)
   removeNode(value) {
     if (this.nodes[value]) {
       for (const edge of this.nodes[value]) {
@@ -25,11 +27,15 @@ class Graph {
       delete this.nodes[value];
     }
   }
+
   // returns boolean. Returns true if value is found in graph, false otherwise
+  // O(n)
   contains(value) {
     return !!this.nodes[value];
   }
+
   // returns undefined. Create connection between two nodes if they're both present in the graph
+  // O(n)
   addEdge(value1, value2) {
     if (this.nodes[value1] && this.nodes[value2]) {
       if (!this.nodes[value1].includes(value2)) this.nodes[value1].push(value2);
@@ -38,7 +44,9 @@ class Graph {
       return "Invalid node value";
     }
   }
+
   // returns undefined. Remove connection between two nodes
+  // O(n)
   removeEdge(value1, value2) {
     if (this.hasEdge(value1, value2)) {
       let index = this.nodes[value1].indexOf(value2);
@@ -47,7 +55,9 @@ class Graph {
       this.nodes[value2].splice(index, 1);
     }
   }
+
   // returns boolean. Returns true if edge exists, false otherwise
+  // O(n)
   hasEdge(value1, value2) {
     return (
       this.nodes[value1].includes(value2) && this.nodes[value2].includes(value1)

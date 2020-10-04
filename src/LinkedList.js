@@ -13,6 +13,7 @@ class LinkedList {
     }
   }
 
+  //O(1)
   appendToTail(value) {
     const newNode = new Node(value);
     if ("head" in this === false) {
@@ -24,12 +25,14 @@ class LinkedList {
     return newNode;
   }
 
+  //O(1)
   removeHead() {
     const oldHead = this.head;
     this.head = this.head.next;
     return oldHead;
   }
 
+  //O(n)
   findNode(value) {
     let iterator = this.head;
     while (iterator) {
@@ -48,7 +51,7 @@ The following are part of the advanced requirements.
 Do not proceed until you are done with the basic
 requirements for ALL data structures in this exercise.
 */
-
+  //O(n)
   forEach(callback) {
     let iterator = this.head;
     while (iterator) {
@@ -57,6 +60,7 @@ requirements for ALL data structures in this exercise.
     }
   }
 
+  //O(n)
   print() {
     let nodePrint = "";
     function addToNodePrint(value) {
@@ -66,12 +70,14 @@ requirements for ALL data structures in this exercise.
     return nodePrint.slice(0, -2);
   }
 
+  //O(1)
   insertHead(value) {
     const newHead = new Node(value);
     newHead.next = this.head;
     return (this.head = newHead);
   }
 
+  //O(n)
   insertAfter(refNode, value) {
     if (!refNode || !(refNode instanceof Node))
       throw new Error("Please supply a refNode");
@@ -87,6 +93,7 @@ requirements for ALL data structures in this exercise.
     }
   }
 
+  //O(n)
   removeAfter(refNode) {
     if (!refNode) return;
     let iterator = this.head;

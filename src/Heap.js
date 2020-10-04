@@ -3,8 +3,8 @@ class Heap {
     this.storage = [];
   }
 
+  // O(log n)
   insert(value) {
-    // O(log n)
     this.storage.push(value);
     this.sortInsert();
   }
@@ -30,6 +30,7 @@ class Heap {
     }
   }
 
+  // O(log n)
   removeMax() {
     //it's important for this step to move the rightmost element
     //to be moved to the first position
@@ -44,6 +45,7 @@ class Heap {
 
   sortRemoval() {
     let parentIndex = 0;
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       //selects parent
       let parent = this.storage[parentIndex];
@@ -75,7 +77,6 @@ class Heap {
     }
   }
 }
-//}
 module.exports = Heap;
 // 1 4 7 5 3
 // 0 1 2 3 4 index

@@ -5,6 +5,7 @@ class BinarySearchTree {
     this.right = null;
   }
 
+  //O(logN)
   insert(value) {
     let iterator = this;
     let insertedFlag = false;
@@ -27,8 +28,10 @@ class BinarySearchTree {
     return this;
   }
 
+  //O(logN)
   contains(value) {
     let iterator = this;
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       if (iterator.value === value) return true;
       if (value > iterator.value) {
@@ -45,6 +48,7 @@ class BinarySearchTree {
     }
   }
 
+  //O(n)
   traverseDepthFirstInOrder(callback) {
     function inOrder(callback, tree) {
       if (tree.left !== null) inOrder(callback, tree.left);

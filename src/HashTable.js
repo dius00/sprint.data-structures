@@ -7,11 +7,13 @@ class HashTable {
     this.storage = ControlledArray(this.limit);
   }
 
+  // O(1)
   insert(key, value) {
     const index = simpleHash(key, this.limit);
     this.storage.set(index, value);
   }
 
+  // O(1)
   retrieve(key) {
     const index = simpleHash(key, this.limit);
     const retrieved = this.storage.get(index);
@@ -19,6 +21,7 @@ class HashTable {
     else return null;
   }
 
+  // O(1)
   remove(key) {
     let found = false;
     const index = simpleHash(key, this.limit);
